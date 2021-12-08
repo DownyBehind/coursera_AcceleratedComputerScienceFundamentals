@@ -106,8 +106,11 @@ for (unsigned x = 0; x < image.width(); x++) {
       // `pixel` is a reference to the memory stored inside of the PNG `image`,
       // which means you're changing the image directly. No need to `set`
       // the pixel since you're directly changing the memory of the image.
+
       double orange_gap = abs(pixel.h - 11); 
+      if(orange_gap >= 180) orange_gap = (360 - pixel.h) + 11;
       double blue_gap = abs(pixel.h - 216);
+      if(orange_gap >= 180) blue_gap = (360 - 216) + pixel.h;
 
       if(orange_gap < blue_gap){
         pixel.h = 11;
@@ -134,6 +137,18 @@ for (unsigned x = 0; x < image.width(); x++) {
 * @return The watermarked image.
 */
 PNG watermark(PNG firstImage, PNG secondImage) {
+for (unsigned x = 0; x < firstImage.width(); x++) {
+    for (unsigned y = 0; y < firstImage.height(); y++) {
+      HSLAPixel & pixel2 = secondImage.getPixel(x, y);
+      HSLAPixel & pixel = firstImage.getPixel(x, y);
+      if(pixel2.l == 1){
+        pixel.l += 0.2;
+        if(pixel.l >=1) pixel.l = 1;
+      }
+
+    }
+  }
+
 
   return firstImage;
 }
