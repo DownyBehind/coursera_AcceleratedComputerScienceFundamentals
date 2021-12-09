@@ -25,6 +25,12 @@ int main() {
   png2.readFromFile("overlay.png");
   result = watermark(png, png2);
   result.writeToFile("out-watermark.png");
-  
+
+  // int* a = (int*)malloc(sizeof(int) * 10 );
+
+  // int x;
+
+  // int* c = new int[x];
+
   return 0;
 }
