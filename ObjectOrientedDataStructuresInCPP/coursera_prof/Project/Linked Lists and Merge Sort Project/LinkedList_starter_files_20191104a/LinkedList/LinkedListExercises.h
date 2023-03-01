@@ -83,28 +83,66 @@ void LinkedList<T>::insertOrdered(const T &newData)
 {
 
   Node *currentNode = head_;
+  // currentNode에 첫 노드 주소를 받는다.
 
-  while (currentNode->next != nullptr)
+  Node *newNode = new Node(newData); // 새 노드 생성
+
+  if (head_ == nullptr)
   {
-    if (currentNode->data < newData)
-    {
-      currentNode = currentNode->next;
-    }
-    else
-    {
-      break;
-    }
-  }
-
-  Node *newNode = new Node(newData);
-
-  if (currentNode->next != nullptr)
-  {
+    currentNode = newNode;
+    head_ = newNode;
+    tail_ = newNode;
   }
   else
   {
-    currentNode->next = newNode;
+    while (currentNode->next != nullptr) // 다음 주소가 없을 때까지 돌린다.
+    {
+      if (currentNode->data < newData)
+      {
+        currentNode = currentNode->next;
+      }
+      else
+      {
+        break; // 더 큰 경우
+      }
     }
+
+    if (currentNode->next != nullptr)
+    {
+      if (currentNode->prev == nullptr)
+      {
+        currentNode->prev = newNode;
+        newNode->next = currentNode;
+        head_ = newNode;
+      }
+      else
+      {
+        Node *prevNode = currentNode->prev;
+
+        prevNode->next = newNode;
+        newNode->prev = prevNode;
+        currentNode->prev = newNode;
+        newNode->next = currentNode;
+      }
+    }
+    else
+    {
+      if (currentNode->prev == nullptr)
+      {
+        currentNode = newNode;
+        head_ = newNode;
+        tail_ = newNode;
+      }
+      else
+      {
+        currentNode->next = newNode;
+        newNode->prev = currentNode;
+        tail_ = newNode;
+      }
+    }
+  }
+
+  size_++;
 
   // -----------------------------------------------------------
   // TODO: Your code here!
