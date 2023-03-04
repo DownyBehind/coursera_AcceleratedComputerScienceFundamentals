@@ -292,6 +292,16 @@ LinkedList<T> LinkedList<T>::merge(const LinkedList<T> &other) const
   // Please implement this function according to the description
   // above and in the instructions PDF.
 
+  if (left.head_ == nullptr)
+  {
+    merged = right;
+  }
+
+  if (right.head_ == nullptr)
+  {
+    merged = left;
+  }
+
   // Hints:
   // 1. Assuming that the left and right lists are already sorted, remember
   //    that the smallest items are already available at the front. You can
