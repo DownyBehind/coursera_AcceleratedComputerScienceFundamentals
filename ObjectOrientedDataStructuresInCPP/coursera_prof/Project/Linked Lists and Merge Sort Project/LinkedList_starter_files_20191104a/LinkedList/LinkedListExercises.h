@@ -294,13 +294,94 @@ LinkedList<T> LinkedList<T>::merge(const LinkedList<T> &other) const
 
   if (left.head_ == nullptr)
   {
-    merged = right;
+    return right;
   }
 
   if (right.head_ == nullptr)
   {
-    merged = left;
+    return left;
   }
+
+  std::cout << "stage 1\n";
+
+  // Determine the head of the merged list
+  Node *head = new Node(0);
+  if (left.head_->data < right.head_->data)
+  {
+    head = left.head_;
+    left.head_ = left.head_->next;
+  }
+  else
+  {
+    head = right.head_;
+    right.head_ = right.head_->next;
+  }
+
+  std::cout << "stage 2\n";
+
+  // Set the head of the merged list and update its size
+  merged.head_ = head;
+
+  // Merge the two lists
+  while (left.head_ != nullptr && right.head_ != nullptr)
+  {
+    if (left.head_->data < right.head_->data)
+    {
+      head->next = left.head_;
+      left.head_ = left.head_->next;
+    }
+    else
+    {
+      head->next = right.head_;
+      right.head_ = right.head_->next;
+    }
+    Node *prev = head;
+    head = head->next;
+    head->prev = prev;
+  }
+
+  std::cout << "stage 3\n";
+
+  // Append any remaining nodes from the left or right list
+  if (left.head_ != nullptr)
+  {
+    left.head_->prev = head;
+    head->next = left.head_;
+    merged.tail_ = left.tail_;
+  }
+  else
+  {
+    right.head_->prev = head;
+    head->next = right.head_;
+    merged.tail_ = right.tail_;
+  }
+
+  std::cout << "stage 4\n";
+
+  merged.size_ = left.size_ + right.size_;
+
+  std::cout << merged.size() << '\n';
+
+  Node *test = new Node(0);
+
+  test = merged.head_;
+  for (int i = 0; i < merged.size_; i++)
+  {
+    std::cout << test->data << '\n';
+    test = test->next;
+  }
+
+  test = merged.tail_;
+  for (int i = 0; i < merged.size_; i++)
+  {
+    std::cout << test->data << '\n';
+    test = test->prev;
+  }
+
+  std::cout << merged.head_->data << '\n';
+  std::cout << merged.tail_->data << '\n';
+
+  std::cout << "stage 5\n";
 
   // Hints:
   // 1. Assuming that the left and right lists are already sorted, remember
