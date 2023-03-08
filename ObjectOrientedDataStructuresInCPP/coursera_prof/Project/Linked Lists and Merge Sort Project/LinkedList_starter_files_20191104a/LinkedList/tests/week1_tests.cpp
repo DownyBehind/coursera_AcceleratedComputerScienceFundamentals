@@ -692,23 +692,23 @@ TEST_CASE("Testing merge: Left and right lists non-empty; same size", "[weight=1
 
   LinkedList<int> left;
   left.pushBack(1);
-  // left.pushBack(5);
-  // left.pushBack(10);
-  // left.pushBack(20);
+  left.pushBack(5);
+  left.pushBack(10);
+  left.pushBack(20);
   LinkedList<int> right;
   right.pushBack(2);
-  // right.pushBack(4);
-  // right.pushBack(11);
-  // right.pushBack(19);
+  right.pushBack(4);
+  right.pushBack(11);
+  right.pushBack(19);
   LinkedList<int> expectedList;
   expectedList.pushBack(1);
   expectedList.pushBack(2);
-  // expectedList.pushBack(4);
-  // expectedList.pushBack(5);
-  // expectedList.pushBack(10);
-  // expectedList.pushBack(11);
-  // expectedList.pushBack(19);
-  // expectedList.pushBack(20);
+  expectedList.pushBack(4);
+  expectedList.pushBack(5);
+  expectedList.pushBack(10);
+  expectedList.pushBack(11);
+  expectedList.pushBack(19);
+  expectedList.pushBack(20);
   auto studentResultList = left.merge(right);
 
   SECTION("Checking that values are correct")
