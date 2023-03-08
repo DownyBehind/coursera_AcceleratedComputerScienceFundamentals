@@ -305,84 +305,42 @@ LinkedList<T> LinkedList<T>::merge(const LinkedList<T> &other) const
   std::cout << "stage 1\n";
 
   // Determine the head of the merged list
-  if (left.head_->data < right.head_->data)
+  while (left.size_ != 0 && right.size_ != 0)
   {
-    merged = left;
-    left.head_ = left.head_->next;
+    if (left.head_->data < right.head_->data)
+    {
+      merged.pushBack(left.head_->data);
+      left.popFront();
+    }
+    else
+    {
+      merged.pushBack(right.head_->data);
+      right.popFront();
+    }
   }
-  else
+
+  if (left.size_ != 0)
   {
-    merged = right;
-    right.head_ = right.head_->next;
+    while (left.size_ != 0)
+    {
+      merged.pushBack(left.head_->data);
+      left.popFront();
+    }
+  }
+
+  if (right.size_ != 0)
+  {
+    while (right.size_ != 0)
+    {
+      merged.pushBack(right.head_->data);
+      right.popFront();
+    }
   }
 
   std::cout << "stage 2\n";
 
   // Set the head of the merged list and update its size
   // merged.head_ = head;
-
-  Node *current = new Node(0);
-
-  // Merge the two lists
-  while (left.head_ != nullptr && right.head_ != nullptr)
-  {
-    if (left.head_->data < right.head_->data)
-    {
-      head->next = left.head_;
-      left.head_ = left.head_->next;
-    }
-    else
-    {
-      head->next = right.head_;
-      right.head_ = right.head_->next;
-    }
-    Node *prev = head;
-    head = head->next;
-    head->prev = prev;
-  }
-
-  // std::cout << "stage 3\n";
-
-  // // Append any remaining nodes from the left or right list
-  // if (left.head_ != nullptr)
-  // {
-  //   left.head_->prev = head;
-  //   head->next = left.head_;
-  //   merged.tail_ = left.tail_;
-  // }
-  // else
-  // {
-  //   right.head_->prev = head;
-  //   head->next = right.head_;
-  //   merged.tail_ = right.tail_;
-  // }
-
-  // std::cout << "stage 4\n";
-
-  // merged.size_ = left.size_ + right.size_;
-
-  // std::cout << merged.size() << '\n';
-
-  // Node *test = new Node(0);
-
-  // test = merged.head_;
-  // for (int i = 0; i < merged.size_; i++)
-  // {
-  //   std::cout << test->data << '\n';
-  //   test = test->next;
-  // }
-
-  // test = merged.tail_;
-  // for (int i = 0; i < merged.size_; i++)
-  // {
-  //   std::cout << test->data << '\n';
-  //   test = test->prev;
-  // }
-
-  // std::cout << merged.head_->data << '\n';
-  // std::cout << merged.tail_->data << '\n';
-
-  // std::cout << "stage 5\n";
 
   // Hints:
   // 1. Assuming that the left and right lists are already sorted, remember
