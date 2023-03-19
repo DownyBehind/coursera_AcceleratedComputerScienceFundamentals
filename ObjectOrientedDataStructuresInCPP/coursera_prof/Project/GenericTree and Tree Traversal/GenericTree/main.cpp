@@ -28,9 +28,9 @@ int main()
 
   exampleTree2();
 
-  treeFactoryTest();
+  // treeFactoryTest();
 
-  // traversalTest();
+  traversalTest();
 
   return 0;
 }
